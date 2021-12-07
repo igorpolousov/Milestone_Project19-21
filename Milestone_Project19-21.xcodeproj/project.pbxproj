@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		C22DA992275F63A700AF2DA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22DA991275F63A700AF2DA7 /* AppDelegate.swift */; };
 		C22DA994275F63A700AF2DA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22DA993275F63A700AF2DA7 /* SceneDelegate.swift */; };
-		C22DA996275F63A700AF2DA7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22DA995275F63A700AF2DA7 /* ViewController.swift */; };
 		C22DA999275F63A700AF2DA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C22DA997275F63A700AF2DA7 /* Main.storyboard */; };
 		C22DA99B275F63A800AF2DA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22DA99A275F63A800AF2DA7 /* Assets.xcassets */; };
 		C22DA99E275F63A800AF2DA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C22DA99C275F63A800AF2DA7 /* LaunchScreen.storyboard */; };
+		C22DA9A6275F641500AF2DA7 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22DA9A5275F641400AF2DA7 /* NotesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C22DA98E275F63A700AF2DA7 /* Milestone_Project19-21.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Milestone_Project19-21.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C22DA991275F63A700AF2DA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C22DA993275F63A700AF2DA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C22DA995275F63A700AF2DA7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C22DA998275F63A700AF2DA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C22DA99A275F63A800AF2DA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C22DA99D275F63A800AF2DA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C22DA99F275F63A800AF2DA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C22DA9A5275F641400AF2DA7 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 			children = (
 				C22DA991275F63A700AF2DA7 /* AppDelegate.swift */,
 				C22DA993275F63A700AF2DA7 /* SceneDelegate.swift */,
-				C22DA995275F63A700AF2DA7 /* ViewController.swift */,
+				C22DA9A5275F641400AF2DA7 /* NotesViewController.swift */,
 				C22DA997275F63A700AF2DA7 /* Main.storyboard */,
 				C22DA99A275F63A800AF2DA7 /* Assets.xcassets */,
 				C22DA99C275F63A800AF2DA7 /* LaunchScreen.storyboard */,
@@ -138,9 +138,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C22DA996275F63A700AF2DA7 /* ViewController.swift in Sources */,
 				C22DA992275F63A700AF2DA7 /* AppDelegate.swift in Sources */,
 				C22DA994275F63A700AF2DA7 /* SceneDelegate.swift in Sources */,
+				C22DA9A6275F641500AF2DA7 /* NotesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +306,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -334,7 +334,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
