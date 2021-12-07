@@ -53,10 +53,10 @@
             </objects>
             <point key="canvasLocation" x="851" y="15"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="IBU-Zy-d9q">
             <objects>
-                <viewController id="Pia-Jy-zyu" sceneMemberID="viewController">
+                <viewController id="Pia-Jy-zyu" customClass="DetailViewController" customModule="Milestone_Project19_21" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RUO-mq-zH9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,6 +73,9 @@
                         <viewLayoutGuide key="safeArea" id="ecD-9K-csz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="EfW-cQ-Y8k" id="Uf4-cx-B9e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bAl-WB-YhA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
