@@ -7,32 +7,73 @@
 
 import UIKit
 
-class NotesViewController: UITableViewController {
+class NotesViewController: UITableViewController, SendNoteToArray {
+    
+    var notes = [Note]()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadNotes()
+        
+        title = "Notes"
 
-      
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
     }
 
+    
+    @objc func addNote() {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            vc.delegate = self
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func loadNotes() {
+        let defaults = UserDefaults.standard
+        let jsonDecoder = JSONDecoder()
+        
+        if let savedData = defaults.object(forKey: "detailNotes") as? Data {
+            do {
+                notes = try jsonDecoder.decode([Note].self, from: savedData)
+            } catch {
+                print("There's no data to load")
+            }
+        }
+    }
+    
     // MARK: - Table view data source
 
  
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 0
+        return  notes.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = notes[indexPath.row].noteText
 
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
+            vc.noteText = notes[indexPath.row].noteText
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func sendNote(_ notes: [Note]) {
+        self.notes = notes
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.

@@ -11,13 +11,13 @@
         <!--Notes View Controller-->
         <scene sceneID="TMd-jO-aRY">
             <objects>
-                <tableViewController id="QKZ-Um-Mgh" customClass="NotesViewController" customModule="Milestone_Project19_21" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Notes" id="QKZ-Um-Mgh" customClass="NotesViewController" customModule="Milestone_Project19_21" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="qvN-KA-dm3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="JZh-Eq-DhS" detailTextLabel="Ash-7L-LWm" style="IBUITableViewCellStyleSubtitle" id="SAo-F5-qgs">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="JZh-Eq-DhS" detailTextLabel="Ash-7L-LWm" style="IBUITableViewCellStyleSubtitle" id="SAo-F5-qgs">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SAo-F5-qgs" id="7Ke-hN-LwW">
@@ -56,13 +56,13 @@
         <!--Detail View Controller-->
         <scene sceneID="IBU-Zy-d9q">
             <objects>
-                <viewController id="Pia-Jy-zyu" customClass="DetailViewController" customModule="Milestone_Project19_21" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Detail" id="Pia-Jy-zyu" customClass="DetailViewController" customModule="Milestone_Project19_21" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RUO-mq-zH9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="EfW-cQ-Y8k">
-                                <rect key="frame" x="20" y="44" width="374" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.96915808077295196" blue="0.99949639673782431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="textColor" systemColor="labelColor"/>
