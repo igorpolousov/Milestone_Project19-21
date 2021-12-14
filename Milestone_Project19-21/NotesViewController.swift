@@ -24,19 +24,19 @@ class NotesViewController: UITableViewController,SendNotesDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 0
+        return notes.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = notes[indexPath.row].noteTitle
+        cell.detailTextLabel?.text = notes[indexPath.row].noteDate
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
