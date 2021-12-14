@@ -9,10 +9,10 @@ import Foundation
 
 class Note: Codable {
     var noteTitle: String
-    var noteText: String
+    var noteDate: Date
     
-    init(noteTitle: String, noteText: String){
+    init(noteTitle: String, noteDate: Date){
         self.noteTitle = noteTitle
-        self.noteText = noteText
+        self.noteDate = noteDate
     }
 }

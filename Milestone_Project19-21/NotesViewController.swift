@@ -8,6 +8,8 @@
 import UIKit
 
 class NotesViewController: UITableViewController {
+    
+    var notes = [Note]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
