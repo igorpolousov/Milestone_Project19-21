@@ -10,6 +10,14 @@ import UIKit
 class NotesViewController: UITableViewController, SendNoteToArray {
     
     var notes = [Note]()
+    var newNoteButton: UIBarButtonItem!
+    var notesCountInfo: UIBarButtonItem!
+    
+     var notesCount = 0 {
+        didSet {
+            notesCountInfo?.title = "\(notesCount) Notes"
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -19,9 +27,20 @@ class NotesViewController: UITableViewController, SendNoteToArray {
         super.viewDidLoad()
         loadNotes()
         
+        notesCount = notes.count
+        
         title = "Notes"
+        navigationController?.toolbar.tintColor = .systemOrange
+        
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        newNoteButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(addNote))
+        
+        notesCountInfo = UIBarButtonItem(title: "\(notes.count) Notes", image: nil, primaryAction: nil, menu: nil)
+        
+        toolbarItems = [space, notesCountInfo, space, newNoteButton]
+        navigationController?.isToolbarHidden = false
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+
     }
 
     
@@ -46,11 +65,21 @@ class NotesViewController: UITableViewController, SendNoteToArray {
         }
     }
     
+    func saveNotes() {
+        let defaults = UserDefaults.standard
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(notes) {
+            defaults.setValue(savedData, forKeyPath: "detailNotes")
+        }
+    }
+    
     // MARK: - Table view data source
 
  
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        notesCount = notes.count
         return  notes.count
     }
 
@@ -66,14 +95,17 @@ class NotesViewController: UITableViewController, SendNoteToArray {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
             vc.noteText = notes[indexPath.row].noteText
+            vc.noteIndex = indexPath.row
             navigationController?.pushViewController(vc, animated: true)
         }
     }
     
-    // Override to support editing the table view.
+  
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             notes.remove(at: indexPath.row)
+            notesCount = notes.count
+            saveNotes()
         }
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
@@ -83,41 +115,5 @@ class NotesViewController: UITableViewController, SendNoteToArray {
     }
     
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-   
-   
- 
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -14,6 +14,12 @@ protocol SendNoteToArray {
 
 class DetailViewController: UIViewController {
     
+    var deleteButton: UIBarButtonItem!
+    var newNoteButton: UIBarButtonItem!
+    var noteIndex = 0
+    var justIndex = 0
+    
+    
     @IBOutlet var textView: UITextView!
     
     var notes: [Note]!
@@ -22,19 +28,34 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      
        loadNote()
-//        textView.text = detailNotes[0].noteText
         
+      
         textView.text = noteText
-       
+        
+        navigationController?.navigationBar.tintColor = .systemOrange
+        navigationController?.toolbar.tintColor = .systemOrange
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
+        navigationController?.navigationBar.tintColor = .systemOrange
         
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeNote))
+       
+        newNoteButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(newNote))
+       
+        
+        toolbarItems = [deleteButton,space,newNoteButton]
+        navigationController?.isToolbarHidden = false
+        
         
     }
     
@@ -45,11 +66,11 @@ class DetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func passData() {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        guard let whereToPass = storyBoard.instantiateViewController(withIdentifier: "Notes") as? NotesViewController  else { return }
-        whereToPass.notes = notes
-        show(whereToPass, sender: nil)
+
+    @objc func newNote() {
+        saveNote()
+        textView.text = ""
+        
     }
     
     @objc func done() {
@@ -58,17 +79,40 @@ class DetailViewController: UIViewController {
         textView.endEditing(true)
     }
     
+    @objc func removeNote() {
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        ac.popoverPresentationController?.barButtonItem = deleteButton
+        ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _Arg in
+            self?.removesNote()
+            self?.textView.text = ""
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac,animated: true)
+    }
+    
+    func removesNote() {
+        notes.remove(at: noteIndex)
+        delegate?.sendNote(notes)
+    }
+    
     func didUpdateDelegate() {
         delegate?.sendNote(notes)
     }
     
      func saveNote() {
          
-         if let text = textView.text {
-             let example = Note(noteTitle: text, noteText: text )
-             notes.insert(example, at: 0)
-             print(notes ?? "Oops")
-             print(notes[0].noteText)
+         for note in notes {
+             if note.noteTitle == textView.text {
+                 return
+             }
+         }
+         if textView.text != "" {
+             if let text = textView.text {
+                 let example = Note(noteTitle: text, noteText: text )
+                 notes.insert(example, at: 0)
+                 print(notes ?? "Oops")
+                 print(notes[0].noteText)
+             }
          }
          
         let defaults = UserDefaults.standard
@@ -110,11 +154,7 @@ class DetailViewController: UIViewController {
         
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destination = segue.destination as? NotesViewController {
-//            destination.notes = notes
-//        }
-//    }
+
     
 
 }
