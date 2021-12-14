@@ -16,23 +16,23 @@ class DetailViewController: UIViewController {
     
     var deleteButton: UIBarButtonItem!
     var newNoteButton: UIBarButtonItem!
-    var noteIndex = 0
-    var justIndex = 0
-    
-    
+    var noteIndex: Int!
+
     @IBOutlet var textView: UITextView!
     
-    var notes: [Note]!
+    var notesSend: [Note]!
     var delegate: SendNoteToArray?
-    var noteText = ""
+    var noteText: String!
+    var originalText: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-       loadNote()
         
-      
+        loadNote()
+        
+        
         textView.text = noteText
+        originalText = noteText
         
         navigationController?.navigationBar.tintColor = .systemOrange
         navigationController?.toolbar.tintColor = .systemOrange
@@ -69,7 +69,10 @@ class DetailViewController: UIViewController {
 
     @objc func newNote() {
         saveNote()
+        didUpdateDelegate()
+        noteIndex = nil
         textView.text = ""
+        
         
     }
     
@@ -91,33 +94,36 @@ class DetailViewController: UIViewController {
     }
     
     func removesNote() {
-        notes.remove(at: noteIndex)
-        delegate?.sendNote(notes)
+        notesSend.remove(at: noteIndex)
+        if notesSend.count == 0 {
+            noteIndex = nil
+        }
+        delegate?.sendNote(notesSend)
     }
     
     func didUpdateDelegate() {
-        delegate?.sendNote(notes)
+        delegate?.sendNote(notesSend)
     }
     
-     func saveNote() {
-         
-         for note in notes {
-             if note.noteTitle == textView.text {
-                 return
-             }
-         }
-         if textView.text != "" {
+    func saveNote() {
+        if  noteIndex == nil {
+            if textView.text != "" {
+                let example = Note(noteTitle: textView.text, noteText: "")
+                notesSend.append(example)
+                print(notesSend)
+            }
+        }
+        guard noteIndex != nil else { return }
+         if textView.text != originalText {
              if let text = textView.text {
-                 let example = Note(noteTitle: text, noteText: text )
-                 notes.insert(example, at: 0)
-                 print(notes ?? "Oops")
-                 print(notes[0].noteText)
+                 notesSend[noteIndex].noteTitle = text
+                 print(notesSend[noteIndex].noteTitle)
              }
          }
          
         let defaults = UserDefaults.standard
         let jsonEncoder = JSONEncoder()
-        if let savedData = try? jsonEncoder.encode(notes) {
+        if let savedData = try? jsonEncoder.encode(notesSend) {
             defaults.setValue(savedData, forKey: "detailNotes")
         }
     }
@@ -128,7 +134,7 @@ class DetailViewController: UIViewController {
         
         if let savedData = defaults.object(forKey: "detailNotes") as? Data {
             do {
-            notes = try jsonDecoder.decode([Note].self, from: savedData)
+            notesSend = try jsonDecoder.decode([Note].self, from: savedData)
             } catch {
                 print("No data available fo load")
             }
@@ -153,8 +159,6 @@ class DetailViewController: UIViewController {
         textView.scrollRangeToVisible(selectedRange)
         
     }
-    
 
-    
 
 }
