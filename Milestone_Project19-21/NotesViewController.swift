@@ -13,11 +13,20 @@ class NotesViewController: UITableViewController,SendNotesDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        notes.append(Note(noteTitle: "test", noteDate: "test"))
+        let newNoteButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(addNewNote))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        toolbarItems = [space,newNoteButton]
+        navigationController?.isToolbarHidden = false
+        navigationController?.navigationBar.tintColor = .systemOrange
+        navigationController?.toolbar.tintColor = .systemOrange
       
     }
 
-    // MARK: - Table view data source
+    @objc func addNewNote() {
+        
+    }
 
     func sendNotes(notes: [Note]) {
         self.notes = notes
@@ -29,7 +38,7 @@ class NotesViewController: UITableViewController,SendNotesDelegate {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         cell.textLabel?.text = notes[indexPath.row].noteTitle
         cell.detailTextLabel?.text = notes[indexPath.row].noteDate

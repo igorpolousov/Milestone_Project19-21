@@ -11,7 +11,7 @@ class Note: Codable {
     var noteTitle: String
     var noteDate: String
     
-    init(noteTitle: String, noteDate: Date){
+    init(noteTitle: String, noteDate: String){
         self.noteTitle = noteTitle
         self.noteDate = noteDate
     }
