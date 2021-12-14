@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol SendNotesDelegate {
+    func sendNotes(notes: [Note])
+}
+
 class DetailViewController: UIViewController {
     
     @IBOutlet var textView: UITextView!
+    var notes = [Note]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

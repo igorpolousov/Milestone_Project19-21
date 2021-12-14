@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotesViewController: UITableViewController {
+class NotesViewController: UITableViewController,SendNotesDelegate {
     
     var notes = [Note]()
 
@@ -19,7 +19,9 @@ class NotesViewController: UITableViewController {
 
     // MARK: - Table view data source
 
- 
+    func sendNotes(notes: [Note]) {
+        self.notes = notes
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
