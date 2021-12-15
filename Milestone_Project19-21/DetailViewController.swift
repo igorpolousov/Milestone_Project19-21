@@ -34,6 +34,11 @@ class DetailViewController: UIViewController {
         toolbarItems = [trashButton,space, addNewNote]
         navigationController?.isToolbarHidden = false
         
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(keyboardAjustments), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(keyboardAjustments), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+        
+        
         textView.text = noteText
         if let index = noteIndex {
             originalText = notes[index].noteTitle
@@ -68,7 +73,7 @@ class DetailViewController: UIViewController {
         
     }
     
-    func keyboardAjustment() {
+    @objc func keyboardAjustments() {
         
     }
     
