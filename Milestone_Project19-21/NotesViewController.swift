@@ -14,13 +14,13 @@ class NotesViewController: UITableViewController,SendNotesDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        notes.append(Note(noteTitle: "test", noteDate: "test"))
         let newNoteButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(addNewNote))
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         toolbarItems = [space,newNoteButton]
         navigationController?.isToolbarHidden = false
         navigationController?.navigationBar.tintColor = .systemOrange
         navigationController?.toolbar.tintColor = .systemOrange
+        print(notes)
       
     }
 
@@ -56,6 +56,7 @@ class NotesViewController: UITableViewController,SendNotesDelegate {
             vc.noteIndex = indexPath.row
             vc.originalText = notes[indexPath.row].noteTitle
             vc.noteText = notes[indexPath.row].noteTitle
+            vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
         }
     }

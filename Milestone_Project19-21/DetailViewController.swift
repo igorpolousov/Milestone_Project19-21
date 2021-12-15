@@ -48,10 +48,15 @@ class DetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        delegate?.sendNotes(notes: notes)
     }
     
     @objc func done() {
-        
+        if textView.text != "" {
+            notes.insert(Note(noteTitle: textView.text, noteDate: ""), at: 0)
+            print(notes[0].noteTitle)
+        }
+        textView.endEditing(true)
     }
     
     @objc func shareNote() {
