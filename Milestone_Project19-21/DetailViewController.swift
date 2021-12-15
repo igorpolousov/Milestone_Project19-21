@@ -24,7 +24,8 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done)), UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))]
+        
         navigationController?.toolbar.tintColor = .systemOrange
         navigationController?.navigationBar.tintColor = .systemOrange
         
@@ -50,6 +51,10 @@ class DetailViewController: UIViewController {
     }
     
     @objc func done() {
+        
+    }
+    
+    @objc func shareNote() {
         
     }
     
