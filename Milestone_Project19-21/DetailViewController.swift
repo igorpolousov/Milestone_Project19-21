@@ -23,6 +23,8 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         navigationController?.toolbar.tintColor = .systemOrange
         navigationController?.navigationBar.tintColor = .systemOrange
         
@@ -38,11 +40,35 @@ class DetailViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    @objc func done() {
+        
+    }
+    
     @objc func deleteNote() {
         
     }
     
     @objc func addNote() {
+        
+    }
+    
+    func updateDelegate() {
+        self.delegate?.sendNotes(notes: notes)
+    }
+    
+    func save() {
+        
+    }
+    
+    func load() {
+        
+    }
+    
+    func keyboardAjustment() {
         
     }
     
