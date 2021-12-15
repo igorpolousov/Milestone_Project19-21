@@ -15,6 +15,11 @@ class DetailViewController: UIViewController {
     
     @IBOutlet var textView: UITextView!
     var notes = [Note]()
+    var delegate: SendNotesDelegate?
+    
+    var noteText: String!
+    var originalText: String!
+    var noteIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +31,11 @@ class DetailViewController: UIViewController {
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         toolbarItems = [trashButton,space, addNewNote]
         navigationController?.isToolbarHidden = false
-       
+        
+        textView.text = noteText
+        if let index = noteIndex {
+            originalText = notes[index].noteTitle
+        }
     }
     
     @objc func deleteNote() {

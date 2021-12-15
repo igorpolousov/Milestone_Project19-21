@@ -56,7 +56,7 @@
         <!--Detail View Controller-->
         <scene sceneID="IBU-Zy-d9q">
             <objects>
-                <viewController id="Pia-Jy-zyu" customClass="DetailViewController" customModule="Milestone_Project19_21" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detail" id="Pia-Jy-zyu" customClass="DetailViewController" customModule="Milestone_Project19_21" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RUO-mq-zH9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
