@@ -7,9 +7,13 @@
 
 import UIKit
 
-class NotesViewController: UITableViewController,SendNotesDelegate {
+class NotesViewController: UITableViewController, SendNotesDelegate {
     
     var notes = [Note]()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
