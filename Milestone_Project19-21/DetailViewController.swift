@@ -19,6 +19,8 @@ class DetailViewController: UIViewController {
     var noteIndex: Int!
 
     @IBOutlet var textView: UITextView!
+    var newsNote: Bool!
+    var deletedNote: Bool = false
     
     var notesSend: [Note]!
     var delegate: SendNoteToArray?
@@ -60,6 +62,7 @@ class DetailViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        savesNotes()
         saveNote()
         didUpdateDelegate()
         textView.endEditing(true)
@@ -69,6 +72,7 @@ class DetailViewController: UIViewController {
 
     @objc func newNote() {
         saveNote()
+        newsNote = true
         didUpdateDelegate()
         noteIndex = nil
         textView.text = ""
@@ -77,6 +81,7 @@ class DetailViewController: UIViewController {
     }
     
     @objc func done() {
+        savesNotes()
         saveNote()
         didUpdateDelegate()
         textView.endEditing(true)
@@ -94,33 +99,41 @@ class DetailViewController: UIViewController {
     }
     
     func removesNote() {
+        deletedNote = true
         notesSend.remove(at: noteIndex)
         if notesSend.count == 0 {
             noteIndex = nil
         }
         delegate?.sendNote(notesSend)
+
     }
     
     func didUpdateDelegate() {
         delegate?.sendNote(notesSend)
     }
     
-    func saveNote() {
-      
-            if textView.text != "" {
-                let example = Note(noteTitle: textView.text, noteDate: "")
+    func savesNotes() {
+        if !deletedNote {
+            if textView.text != "" && newsNote {
+                let example = Note(noteTitle: textView.text, noteText: "")
                 notesSend.append(example)
                 print(notesSend)
             }
-        
-        guard noteIndex != nil else { return }
-         if textView.text != originalText {
-             if let text = textView.text {
-                 notesSend[noteIndex].noteTitle = text
-                 print(notesSend[noteIndex].noteTitle)
-             }
-         }
-         
+            
+            guard noteIndex != nil else { return }
+            if textView.text != originalText {
+                if let text = textView.text {
+                    if let index = noteIndex {
+                        notesSend[index].noteTitle = text
+                        print(notesSend[index].noteTitle)
+                    }
+                }
+            }
+        }
+    }
+    
+    func saveNote() {
+ 
         let defaults = UserDefaults.standard
         let jsonEncoder = JSONEncoder()
         if let savedData = try? jsonEncoder.encode(notesSend) {
