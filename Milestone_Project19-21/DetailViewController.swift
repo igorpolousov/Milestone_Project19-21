@@ -18,11 +18,15 @@ class DetailViewController: UIViewController {
     var delegate: SendNotesDelegate?
     
     var noteText: String!
-    var originalText: String!
+    //var originalText: String!
     var noteIndex: Int!
+    var newNote: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "My notes"
+        print(newNote)
         
         navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done)), UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))]
         
@@ -41,21 +45,19 @@ class DetailViewController: UIViewController {
         
         
         textView.text = noteText
-        if let index = noteIndex {
-            originalText = notes[index].noteTitle
-        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        addingChangingNote()
+        save()
         delegate?.sendNotes(notes: notes)
     }
     
     @objc func done() {
-        if textView.text != "" {
-            notes.insert(Note(noteTitle: textView.text, noteDate: ""), at: 0)
-            print(notes[0].noteTitle)
-        }
+        addingChangingNote()
+        save()
         textView.endEditing(true)
     }
     
@@ -70,18 +72,29 @@ class DetailViewController: UIViewController {
     @objc func addNote() {
         
     }
-    
-    func updateDelegate() {
-        self.delegate?.sendNotes(notes: notes)
+    func addingChangingNote() {
+        if newNote == true {
+            let example = Note(noteTitle: textView.text, noteDate: "")
+            notes.append(example)
+            print(notes[0].noteTitle)
+            print(newNote)
+            print(notes)
+        } 
     }
+    
     
     func save() {
         
-    }
-    
-    func load() {
+        let defaults = UserDefaults.standard
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(notes) {
+            defaults.setValue(savedData, forKey: "notes")
+        }
         
     }
+    
+   
     
     @objc func keyboardAjustments() {
         

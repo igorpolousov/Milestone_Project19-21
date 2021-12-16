@@ -13,6 +13,7 @@ class NotesViewController: UITableViewController, SendNotesDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        load()
     }
 
     override func viewDidLoad() {
@@ -31,6 +32,7 @@ class NotesViewController: UITableViewController, SendNotesDelegate {
     @objc func addNewNote() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailViewController {
             vc.delegate = self
+            vc.newNote = true
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -57,8 +59,9 @@ class NotesViewController: UITableViewController, SendNotesDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailViewController {
             vc.notes = notes
+            vc.newNote = false
             vc.noteIndex = indexPath.row
-            vc.originalText = notes[indexPath.row].noteTitle
+            //vc.originalText = notes[indexPath.row].noteTitle
             vc.noteText = notes[indexPath.row].noteTitle
             vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
@@ -76,5 +79,18 @@ class NotesViewController: UITableViewController, SendNotesDelegate {
         }    
     }
     */
+    
+    func load() {
+        let defaults = UserDefaults.standard
+        let jsonDecoder = JSONDecoder()
+        
+        if let savedData = defaults.object(forKey: "notes") as? Data {
+            do {
+                notes = try jsonDecoder.decode([Note].self, from: savedData)
+            } catch {
+                print("Unable to load data")
+            }
+        }
+    }
 
 }
