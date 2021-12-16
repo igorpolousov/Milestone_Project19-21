@@ -39,7 +39,7 @@ class DetailViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .systemOrange
         navigationController?.toolbar.tintColor = .systemOrange
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done)), UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))]
         navigationController?.navigationBar.tintColor = .systemOrange
         
         let notificationCenter = NotificationCenter.default
@@ -69,6 +69,11 @@ class DetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc func shareNote() {
+        let vc = UIActivityViewController(activityItems: [notesSend[noteIndex].noteTitle], applicationActivities: [])
+        present(vc, animated: true)
+    }
+    
 
     @objc func newNote() {
         saveNote()
@@ -85,6 +90,7 @@ class DetailViewController: UIViewController {
         saveNote()
         didUpdateDelegate()
         textView.endEditing(true)
+        newsNote = false
     }
     
     @objc func removeNote() {
