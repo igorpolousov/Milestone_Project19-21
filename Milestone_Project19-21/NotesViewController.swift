@@ -13,7 +13,7 @@ class NotesViewController: UITableViewController, SendNotesDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        load()
+        
     }
 
     override func viewDidLoad() {
@@ -25,12 +25,14 @@ class NotesViewController: UITableViewController, SendNotesDelegate {
         navigationController?.isToolbarHidden = false
         navigationController?.navigationBar.tintColor = .systemOrange
         navigationController?.toolbar.tintColor = .systemOrange
+        
+        load()
         print(notes)
-      
     }
 
     @objc func addNewNote() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailViewController {
+            vc.notes = notes
             vc.delegate = self
             vc.newNote = true
             navigationController?.pushViewController(vc, animated: true)
@@ -58,10 +60,8 @@ class NotesViewController: UITableViewController, SendNotesDelegate {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailViewController {
-            vc.notes = notes
             vc.newNote = false
             vc.noteIndex = indexPath.row
-            //vc.originalText = notes[indexPath.row].noteTitle
             vc.noteText = notes[indexPath.row].noteTitle
             vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)

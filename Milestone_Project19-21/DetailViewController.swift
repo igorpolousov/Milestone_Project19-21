@@ -18,7 +18,6 @@ class DetailViewController: UIViewController {
     var delegate: SendNotesDelegate?
     
     var noteText: String!
-    //var originalText: String!
     var noteIndex: Int!
     var newNote: Bool = false
     
@@ -27,6 +26,7 @@ class DetailViewController: UIViewController {
         
         title = "My notes"
         print(newNote)
+        print(noteIndex)
         
         navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done)), UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareNote))]
         
@@ -51,13 +51,11 @@ class DetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         addingChangingNote()
-        save()
         delegate?.sendNotes(notes: notes)
     }
     
     @objc func done() {
         addingChangingNote()
-        save()
         textView.endEditing(true)
     }
     
@@ -73,13 +71,19 @@ class DetailViewController: UIViewController {
         
     }
     func addingChangingNote() {
-        if newNote == true {
+        if newNote {
             let example = Note(noteTitle: textView.text, noteDate: "")
             notes.append(example)
+            save()
             print(notes[0].noteTitle)
             print(newNote)
             print(notes)
-        } 
+        } else {
+            if let index = noteIndex {
+            notes[index].noteTitle = textView.text
+            save()
+            }
+        }
     }
     
     
