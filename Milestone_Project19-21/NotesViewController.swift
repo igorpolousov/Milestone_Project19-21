@@ -48,6 +48,7 @@ class NotesViewController: UITableViewController, SendNoteToArray {
     @objc func addNote() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
             vc.delegate = self
+            vc.notesSend = notesGet
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -97,6 +98,7 @@ class NotesViewController: UITableViewController, SendNoteToArray {
             vc.noteText = notesGet[indexPath.row].noteTitle
             vc.noteIndex = indexPath.row
             vc.delegate = self
+            vc.notesSend = notesGet
             navigationController?.pushViewController(vc, animated: true)
         }
     }

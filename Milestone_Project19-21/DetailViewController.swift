@@ -106,13 +106,13 @@ class DetailViewController: UIViewController {
     }
     
     func saveNote() {
-        if  noteIndex == nil {
+      
             if textView.text != "" {
-                let example = Note(noteTitle: textView.text, noteText: "")
+                let example = Note(noteTitle: textView.text, noteDate: "")
                 notesSend.append(example)
                 print(notesSend)
             }
-        }
+        
         guard noteIndex != nil else { return }
          if textView.text != originalText {
              if let text = textView.text {
